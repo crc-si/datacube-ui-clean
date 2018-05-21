@@ -50,7 +50,7 @@ ALLOWED_HOSTS = ['*']
 # Database settings from the environment or default
 db_user = os.environ.get('POSTGRES_USER', 'dc_user')
 db_pass = os.environ.get('POSTGRES_PASSWORD', 'localuser1234')
-db_name = os.environ.get('POSTGRES_DATABASE', 'datacube')
+db_name = os.environ.get('POSTGRES_DATABASE', db_user)
 db_host = os.environ.get('POSTGRES_HOSTNAME', '127.0.0.1')
 db_port = os.environ.get('POSTGRES_PORT', '5432')
 
@@ -196,11 +196,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = '/static/'
 
-STATICFILES_DIRS = [
-    '/home/' + LOCAL_USER + '/Datacube/data_cube_ui/static',
-]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
 
 # CELERY STUFF
 
